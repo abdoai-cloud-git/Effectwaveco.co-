@@ -72,24 +72,24 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, image, index }) => 
 const Team: React.FC<TeamProps> = ({ subtitle, title, description }) => {
   const team = [
     {
-      name: "أحمد المصراتي",
-      role: "المدير الإبداعي",
+      name: "سامي التاجوري",
+      role: "المؤسس والمدير التنفيذي",
       image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=800"
     },
     {
-      name: "سارة العبيدي",
-      role: "مديرة الاستراتيجية",
-      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=800"
+      name: "محمد بن ناصر",
+      role: "المدير العام",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=800"
     },
     {
-      name: "محمد الفيتوري",
-      role: "خبير التسويق الرقمي",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=800"
+      name: "أحمد عمار",
+      role: "مدير العلاقات",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=800"
     },
     {
-      name: "ليلى الترهوني",
-      role: "مصممة هوية بصرية",
-      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=800"
+      name: "المدير الإبداعي",
+      role: "Creative Director",
+      image: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&q=80&w=800"
     }
   ];
 

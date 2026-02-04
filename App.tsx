@@ -6,7 +6,8 @@ import ServicesGrid from './components/ServicesGrid';
 import Team from './components/Team';
 import WhyUs from './components/WhyUs';
 import Footer from './components/Footer';
-import { Menu, Users, Eye, Target, PenTool, Monitor, Megaphone, Video, Aperture, Film, Clapperboard, Layers, Check, Star, Zap, Image, Mic2, Tv, X } from 'lucide-react';
+import Logo from './components/Logo';
+import { Menu, Users, Eye, Target, PenTool, Monitor, Megaphone, Video, Aperture, Film, Clapperboard, Layers, Check, Star, Zap, Image, Mic2, Tv, X, BarChart3, Globe, Sparkles } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type Theme = 'agency' | 'production';
@@ -15,42 +16,42 @@ type Theme = 'agency' | 'production';
 
 const agencyContent = {
   hero: {
-    badge: "وكالة تسويق إقليمية متكاملة",
+    badge: "استثمار رائد | A Groundbreaking Investment",
     titleLine1: "موجة تأثير",
-    titleLine2: "تصنع الفرق",
-    description: "نعمل على تحويل العلامات التجارية إلى قصص مؤثرة تُلهم الجمهور، وتعزز الثقة، وتبني علاقات طويلة الأمد.",
+    titleLine2: "نصنع الفرق",
+    description: "في عالم أصبحت فيه الصورة والرسالة والتوقيت عوامل حاسمة، نقدم فهماً عميقاً للسوق لبناء تأثير حقيقي ومستدام للعلامات التجارية.",
     buttonText: "ابدأ رحلتك معنا"
   },
   about: [
     {
       title: "من نحن",
       icon: Users,
-      text: "نحن فريق متخصص يجمع بين الاستراتيجية، الإبداع، والتكنولوجيا لتقديم حلول تسويقية مدروسة. نعتمد على فهم عميق للسوق لتحويل البيانات إلى نتائج ملموسة."
+      text: "موجة تأثير وكالة رائدة في التسويق والإعلام، تقدم حلولاً مبتكرة تساعد العلامات التجارية والمؤسسات على التواصل بفعالية وخلق تأثير حقيقي ومستدام."
     },
     {
-      title: "رؤيتنا",
-      icon: Eye,
-      text: "أن نكون الخيار الأول في تقديم حلول التسويق المتكاملة التي تساهم في تحقيق الأهداف التجارية وبناء علامات تجارية مؤثرة ومستدامة."
+      title: "فلسفتنا",
+      icon: Sparkles,
+      text: "التأثير يبدأ من الفهم. الإعلام الفعّال هو نتيجة قراءة دقيقة للسوق وسلوك الجمهور. نسعى لتقديم حلول مبنية على البيانات والتحليل مع لمسة إبداعية."
     },
     {
-      title: "رسالتنا",
-      icon: Target,
-      text: "توفير استراتيجيات تسويقية مبتكرة وفعالة، ودعم عملائنا في تحقيق نتائج حقيقية من خلال الدمج بين الإبداع والاحترافية."
+      title: "منصاتنا",
+      icon: Layers,
+      text: "أنشأنا منصات متخصصة كأدوات بحث تسويقي: 'Side Effect' للمجال الطبي، و'روّاد' (قريباً) للاقتصاد وريادة الأعمال، لفهم ديناميكية السوق."
     }
   ],
-  servicesTitle: "خدماتنا الأساسية",
-  servicesSubtitle: "Our Core Services",
+  servicesTitle: "حلول التسويق والاستراتيجية",
+  servicesSubtitle: "Marketing Solutions",
   services: [
     {
-      title: "تطوير العلامات التجارية",
-      subtitle: "Branding",
-      icon: PenTool,
+      title: "الاستراتيجيات التسويقية",
+      subtitle: "Strategic Planning",
+      icon: Target,
       features: [
-        "تحليل السوق والمنافسين",
-        "تحديد القيم والرسالة والرؤية",
-        "صياغة هوية العلامة التجارية",
-        "تصميم الهوية البصرية (شعار، ألوان)",
-        "ضمان الاتساق في جميع قنوات التواصل"
+        "دراسة السوق وتحليل الجمهور",
+        "بناء الخطط وتحديد الرسائل",
+        "تحليل المنافسين والتوجهات",
+        "بناء استراتيجيات النمو",
+        "قياس النتائج وتطوير الأداء"
       ]
     },
     {
@@ -58,161 +59,173 @@ const agencyContent = {
       subtitle: "Digital Marketing",
       icon: Monitor,
       features: [
-        "التسويق بالمحتوى",
-        "إدارة منصات التواصل الاجتماعي",
-        "الإعلانات المدفوعة (Ads)",
-        "تحليل الأداء وقياس النتائج",
-        "استشارات تسويقية رقمية"
+        "إدارة حسابات التواصل الاجتماعي",
+        "صناعة المحتوى الإبداعي",
+        "إدارة الحملات الرقمية (Ads)",
+        "تحليل الأداء الرقمي",
+        "بناء الهوية الرقمية المتكاملة"
       ]
     },
     {
-      title: "الاستشارات والاستراتيجية",
-      subtitle: "Consultation & Strategy",
+      title: "المؤتمرات والفعاليات",
+      subtitle: "Events & PR",
       icon: Megaphone,
       features: [
-        "خطط تسويقية شاملة",
-        "تحسين التواجد الرقمي",
-        "تحليل تجربة المستخدم",
-        "تطوير مسار المبيعات",
-        "استشارات نمو الأعمال"
+        "تخطيط وتنفيذ المؤتمرات",
+        "إدارة المعارض والفعاليات",
+        "التغطية الإعلامية للفعاليات",
+        "العلاقات العامة",
+        "إدارة السمعة المؤسسية"
       ]
-    }
+    },
+    {
+        title: "الهوية البصرية",
+        subtitle: "Branding",
+        icon: PenTool,
+        features: [
+          "تصميم الشعارات",
+          "أدلة الهوية البصرية",
+          "المواد التسويقية",
+          "تطبيقات الهوية",
+          "استراتيجية العلامة التجارية"
+        ]
+      }
   ],
   whyUs: [
     {
-      title: "فهم عميق للسوق",
-      desc: "نمتلك خبرة واسعة بالسوق المحلي والإقليمي تساعدنا على اتخاذ قرارات دقيقة.",
-      icon: Layers
+      title: "التأثير يبدأ من الفهم",
+      desc: "لا نخاطب السوق قبل أن نفهمه بدقة، معتمدين على البيانات والتحليل.",
+      icon: Eye
     },
     {
-      title: "حلول متكاملة",
-      desc: "نقدم كافة الخدمات تحت سقف واحد لضمان تناغم العمل وسرعة الإنجاز.",
-      icon: Check
-    },
-    {
-      title: "التزام بالجودة",
-      desc: "لا نرضى بأقل من التميز في كل تفصيلة، من التخطيط وحتى التنفيذ النهائي.",
+      title: "استثمار رائد",
+      desc: "العمل معنا ليس مجرد خدمة، بل استثمار حقيقي يعود بقيمة مستدامة.",
       icon: Star
     },
     {
-      title: "بناء القيمة",
-      desc: "تركيزنا ليس مجرد التنفيذ، بل خلق قيمة حقيقية ومضافة لعلامتك التجارية.",
-      icon: Zap
+      title: "إبداع وتحليل",
+      desc: "نربط الإبداع الفني بالتحليل السوقي لضمان نتائج ملموسة.",
+      icon: BarChart3
+    },
+    {
+      title: "قيمة حقيقية",
+      desc: "نقدم قيمة حقيقية وشراكة طويلة الأمد، لا مجرد خدمات مؤقتة.",
+      icon: Check
     }
   ],
   team: {
-    subtitle: "The Creative Force",
-    title: "طاقة التأثير",
-    description: "نحن فريق من المبدعين، الاستراتيجيين، والمصممين الذين يتشاركون شغفاً واحداً: صناعة علامات تجارية تترك بصمة لا تُنسى في السوق."
+    subtitle: "Leadership Team",
+    title: "فريق يصنع التأثير",
+    description: "فريق يتكون من مختصين في الإعلام، التسويق، التخطيط، والإدارة، يعملون معًا بعقلية استثمارية لبناء مشاريع ذات قيمة."
   },
-  footerDesc: "نصنع التأثير… ونقوده باحتراف. وكالة تسويق متكاملة تهدف إلى تحويل العلامات التجارية إلى قصص نجاح ملهمة."
+  footerDesc: "نصنع التأثير… ونفهم السوق قبل أن نخاطبه. وكالة رائدة تقدم حلولاً مبتكرة مبنية على المعرفة."
 };
 
 const productionContent = {
   hero: {
-    badge: "استوديو إنتاج فني متكامل",
-    titleLine1: "إبداع بصري",
-    titleLine2: "يروي قصتك",
-    description: "نحول الأفكار إلى تجارب بصرية سينمائية تخلد اللحظة وتوصل الرسالة بأعلى معايير الجودة والاحترافية والابتكار.",
+    badge: "إبداع بصري يروي قصتك",
+    titleLine1: "إعلام هادف",
+    titleLine2: "وإنتاج متكامل",
+    description: "نحول الأفكار إلى تجارب بصرية، سمعية، وحسية. من الإعلانات التلفزيونية إلى الموشن جرافيك والبودكاست.",
     buttonText: "احجز استشارتك"
   },
   about: [
     {
-      title: "فلسفتنا",
+      title: "رؤيتنا الإنتاجية",
       icon: Aperture,
-      text: "نؤمن بأن الصورة أبلغ من ألف كلمة. نسعى لالتقاط جوهر العلامة التجارية وتقديمه في قالب فني يجمع بين الجمال والوظيفة."
+      text: "أن نكون الخيار الأول في صناعة المحتوى المرئي والمسموع الذي يجمع بين الجودة السينمائية والرسالة الهادفة التي تليق بالعلامات التجارية."
     },
     {
       title: "قدراتنا",
       icon: Video,
-      text: "نمتلك أحدث معدات التصوير السينمائي وتقنيات الإضاءة والمونتاج، مما يمكننا من تنفيذ مشاريع ضخمة بأعلى جودة ممكنة."
+      text: "نمتلك أحدث التقنيات في التصوير، المونتاج، والمؤثرات البصرية، بالإضافة إلى استوديوهات صوتية متكاملة لضمان أعلى معايير الجودة."
     },
     {
-      title: "نهجنا",
-      icon: Clapperboard,
-      text: "نهج قصصي فريد يركز على المشاعر والتفاصيل الدقيقة، لنضمن أن كل ثانية من الفيديو تحمل قيمة ومعنى للمشاهد."
+      title: "الجودة الفنية",
+      icon: Film,
+      text: "نركز على أدق التفاصيل الفنية، من الإضاءة وتصحيح الألوان إلى هندسة الصوت، لنضمن تجربة مشاهدة واستماع استثنائية."
     }
   ],
-  servicesTitle: "خدمات الإنتاج",
-  servicesSubtitle: "Production Services",
+  servicesTitle: "خدمات الإنتاج الفني",
+  servicesSubtitle: "Creative Production",
   services: [
     {
-      title: "إنتاج الإعلانات",
-      subtitle: "Commercial Production",
+      title: "الإنتاج الإعلامي",
+      subtitle: "Media Production",
       icon: Clapperboard,
       features: [
-        "إعلانات تلفزيونية وسينمائية",
-        "كتابة السيناريو والإخراج",
-        "تصميم الإنتاج والديكور",
-        "اختيار الممثلين والمواقع",
-        "إدارة الإنتاج الكاملة"
+        "الإعلانات التجارية والتوعوية",
+        "البرامج التلفزيونية والرقمية",
+        "المسلسلات والأفلام القصيرة",
+        "الأفلام الوثائقية",
+        "التغطيات الإعلامية الميدانية"
       ]
     },
     {
-      title: "تغطية الفعاليات",
-      subtitle: "Event Coverage",
-      icon: Mic2,
-      features: [
-        "تصوير المؤتمرات والمعارض",
-        "توثيق الفعاليات الحية",
-        "بث مباشر عالي الجودة",
-        "مقابلات وتغطيات خاصة",
-        "ملخصات (Highlight Reels)"
-      ]
-    },
-    {
-      title: "المونتاج والمؤثرات",
-      subtitle: "Post Production",
+      title: "الإنتاج الفني",
+      subtitle: "Art & VFX",
       icon: Film,
       features: [
-        "مونتاج احترافي وتصحيح ألوان",
-        "موشن جرافيك و 3D",
-        "مؤثرات بصرية (VFX)",
-        "هندسة صوتية ومكساج",
-        "تجهيز المواد للبث"
+        "موشن جرافيك 2D",
+        "فيديوهات 3D للمنتجات",
+        "المعالجة البصرية (Coloring)",
+        "المؤثرات الخاصة (VFX)",
+        "الإخراج والتنفيذ الفني"
       ]
     },
     {
-      title: "تجهيز المواد للبث",
-      subtitle: "Broadcasting",
-      icon: Tv,
+      title: "الصوت والبودكاست",
+      subtitle: "Audio & Podcast",
+      icon: Mic2,
       features: [
-        "تجهيز تقني للبث الفضائي",
-        "إدارة غرف التحكم",
-        "تنسيق البث المباشر",
-        "أرشفة المواد الإعلامية",
-        "الدعم الفني المباشر"
+        "إنتاج بودكاست (صوتي ومرئي)",
+        "التعليق الصوتي (Voice Over)",
+        "المكساج والمعالجة الصوتية",
+        "تسجيل الأعمال الصوتية",
+        "تجهيز الصوت للحملات"
+      ]
+    },
+    {
+      title: "المطبوعات والتصميم",
+      subtitle: "Print & Design",
+      icon: Image,
+      features: [
+        "تصميم المطبوعات",
+        "الكتيبات والنشرات الدعائية",
+        "اللوحات الإعلانية",
+        "تصميم مواد المعارض",
+        "الإنتاج الطباعي"
       ]
     }
   ],
   whyUs: [
     {
       title: "جودة سينمائية",
-      desc: "نستخدم كاميرات وعدسات سينمائية لضمان صورة تضاهي الإنتاجات العالمية.",
+      desc: "نستخدم أحدث الكاميرات والتقنيات لضمان صورة تضاهي الإنتاجات العالمية.",
       icon: Tv
     },
     {
-      title: "فريق محترف",
-      desc: "طاقم عمل من مخرجين ومصورين وفنيين ذوي خبرة عالية في المجال.",
+      title: "فريق متخصص",
+      desc: "كفاءات إبداعية من مخرجين وفنيين ومصممين بخبرات واسعة.",
       icon: Users
     },
     {
-      title: "تقنيات متطورة",
-      desc: "نواكب أحدث تقنيات التصوير والمونتاج لتقديم محتوى عصري ومبتكر.",
-      icon: Aperture
+      title: "حلول متكاملة",
+      desc: "من الفكرة والسيناريو إلى التصوير والمونتاج وحتى الطباعة.",
+      icon: Layers
     },
     {
-      title: "سرعة في التنفيذ",
-      desc: "نلتزم بالمواعيد النهائية مع الحفاظ على أعلى معايير الجودة في كل لقطة.",
+      title: "التزام بالمواعيد",
+      desc: "نحترم الوقت ونضمن تسليم المشاريع في مواعيدها بدقة واحترافية.",
       icon: Zap
     }
   ],
   team: {
-    subtitle: "The Production Crew",
-    title: "صناع الصورة",
-    description: "مخرجون، مصورون، وفنانو مونتاج يجمعهم شغف واحد: إنتاج محتوى بصري يرتقي بالمعايير ويخطف الأنظار."
+    subtitle: "Creative Crew",
+    title: "شركاء الإبداع",
+    description: "نعمل مع شبكة من الكفاءات الإبداعية والتنفيذية لضمان جودة العمل وتحقيق أفضل النتائج في كل مشروع."
   },
-  footerDesc: "نروي قصتك بعدسة احترافية. استوديو إنتاج متخصص في صناعة المحتوى المرئي والإعلاني الذي يترك أثراً."
+  footerDesc: "نحول الإعلام والتسويق إلى قيمة حقيقية. استوديو إنتاج متكامل يروي قصتك باحترافية."
 };
 
 
@@ -253,23 +266,8 @@ export default function App() {
       <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex flex-col md:flex-row justify-between items-center mix-blend-difference gap-4">
         
         {/* Logo Section */}
-        <div className="flex flex-col">
-          <svg 
-             viewBox="0 0 100 100" 
-             className="h-10 md:h-12 w-auto mb-1"
-             xmlns="http://www.w3.org/2000/svg"
-           >
-              <defs>
-                <linearGradient id="headerLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#FFFFFF" />
-                  <stop offset="50%" stopColor="#808080" />
-                  <stop offset="100%" stopColor="#FFFFFF" />
-                </linearGradient>
-              </defs>
-              <path d="M45 20 C60 10, 75 10, 85 25 L65 55 C55 65, 40 65, 30 50 Z" fill="url(#headerLogoGrad)" />
-              <path d="M30 45 C45 35, 60 35, 70 50 L50 80 C40 90, 25 90, 15 75 Z" fill="url(#headerLogoGrad)" opacity="0.9" />
-              <path d="M15 70 C30 60, 45 60, 55 75 L35 105 C25 115, 10 115, 0 100 Z" fill="url(#headerLogoGrad)" opacity="0.8" />
-           </svg>
+        <div className="flex flex-col items-center">
+          <Logo className="h-10 md:h-12 w-auto mb-1" />
           <span className="text-accent text-[0.6rem] font-english font-bold tracking-[0.3em] uppercase transition-colors duration-500">
             {theme === 'agency' ? 'AGENCY' : 'PRODUCTION'}
           </span>
@@ -311,70 +309,37 @@ export default function App() {
         </div>
       </header>
 
-      {/* Bottom Navigation / Theme Switcher - Fixed at bottom, ultra-thin design */}
+      {/* Bottom Navigation / Theme Switcher */}
       <div className="fixed bottom-8 left-0 right-0 z-50 flex flex-col items-center gap-1 pointer-events-none">
          <div className="pointer-events-auto flex flex-col items-center gap-1">
-            {/* Labels Row */}
             <div className="flex w-full justify-between px-1">
-               {/* Media Label (Right side in RTL, over Production) */}
                <span 
                  className={`w-24 md:w-28 text-center text-[9px] font-sans font-thin uppercase tracking-widest transition-all duration-500 ${
-                   theme === 'production' 
-                     ? 'opacity-100 text-accent drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]' 
-                     : 'opacity-40 text-white'
+                   theme === 'production' ? 'opacity-100 text-accent' : 'opacity-40 text-white'
                  }`}
                >
                  Media
                </span>
-
-               {/* Marketing Label (Left side in RTL, over Agency) */}
                <span 
                  className={`w-24 md:w-28 text-center text-[9px] font-sans font-thin uppercase tracking-widest transition-all duration-500 ${
-                   theme === 'agency' 
-                     ? 'opacity-100 text-accent drop-shadow-[0_0_8px_rgba(255,255,255,0.3)]' 
-                     : 'opacity-40 text-white'
+                   theme === 'agency' ? 'opacity-100 text-accent' : 'opacity-40 text-white'
                  }`}
                >
                  Marketing
                </span>
             </div>
-
-            {/* Theme Switcher Slider - Ultra Thin Version */}
             <div className="relative flex items-center bg-white/10 rounded-full p-[1px] border border-white/10 backdrop-blur-md shadow-2xl">
-              {/* Production Button (Right in RTL) */}
-              <button
-                onClick={() => setTheme('production')}
-                className={`relative z-10 px-4 py-1 rounded-full text-[9px] font-bold font-english tracking-wider transition-all duration-300 w-24 md:w-28 text-center ${
-                  theme === 'production' 
-                    ? 'text-white' 
-                    : 'text-white/60 hover:text-white'
-                }`}
-              >
+              <button onClick={() => setTheme('production')} className={`relative z-10 px-4 py-1 rounded-full text-[9px] font-bold font-english tracking-wider transition-all duration-300 w-24 md:w-28 text-center ${theme === 'production' ? 'text-white' : 'text-white/60'}`}>
                 PRODUCTION
               </button>
-              
-              {/* Agency Button (Left in RTL) */}
-              <button
-                onClick={() => setTheme('agency')}
-                className={`relative z-10 px-4 py-1 rounded-full text-[9px] font-bold font-english tracking-wider transition-all duration-300 w-24 md:w-28 text-center ${
-                  theme === 'agency' 
-                    ? 'text-black' 
-                    : 'text-white/60 hover:text-white'
-                }`}
-              >
+              <button onClick={() => setTheme('agency')} className={`relative z-10 px-4 py-1 rounded-full text-[9px] font-bold font-english tracking-wider transition-all duration-300 w-24 md:w-28 text-center ${theme === 'agency' ? 'text-black' : 'text-white/60'}`}>
                 AGENCY
               </button>
-              
-              {/* Sliding Background */}
               <div 
                 className={`absolute top-[1px] bottom-[1px] rounded-full bg-accent transition-all duration-500 ease-out shadow-[0_0_15px_rgba(0,0,0,0.3)]`}
                 style={{
-                  // In RTL, 50% puts it on the Right side (Production), 1px puts it on the Left side (Agency)
                   left: theme === 'production' ? '50%' : '1px',
                   width: 'calc(50% - 1px)',
-                  boxShadow: theme === 'agency' 
-                    ? '0 0 10px rgba(235, 225, 37, 0.4)' 
-                    : '0 0 10px rgba(178, 6, 0, 0.4)'
                 }}
               />
             </div>
@@ -384,11 +349,7 @@ export default function App() {
       <main className="relative z-10">
         <Hero {...content.hero} theme={theme} />
         <About cards={content.about} />
-        <ServicesGrid 
-          title={content.servicesTitle} 
-          subtitle={content.servicesSubtitle} 
-          services={content.services} 
-        />
+        <ServicesGrid title={content.servicesTitle} subtitle={content.servicesSubtitle} services={content.services} />
         <Team {...content.team} />
         <WhyUs reasons={content.whyUs} />
       </main>
