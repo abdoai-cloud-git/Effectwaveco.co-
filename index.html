@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Effect Wave | موجة تأثير</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts Fallback (In case local fonts aren't present) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind Config Hook for CDN usage (Simulating tailwind.config.js in browser) -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              obsidian: '#000000',
+              onyx: '#0A0A0A',
+              accent: 'var(--color-accent)',
+              silver: '#C0C0C0',
+              'gray-surface': '#1A1A1A',
+            },
+            fontFamily: {
+              heading: ['DIN Next Arabic', 'Cairo', 'sans-serif'],
+              body: ['DIN Next Arabic', 'Tajawal', 'sans-serif'],
+              english: ['DIN Next LT Pro', 'Roboto', 'sans-serif'],
+            },
+            backgroundImage: {
+              'noise': "url('https://grainy-gradients.vercel.app/noise.svg')",
+              'grid-pattern': "linear-gradient(to right, #1a1a1a 1px, transparent 1px), linear-gradient(to bottom, #1a1a1a 1px, transparent 1px)",
+            },
+            borderRadius: {
+              '3xl': '1.5rem',
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.30.0",
+    "clsx": "https://esm.sh/clsx@^2.1.1"
+  }
+}
+</script>
+</head>
+  <body class="bg-obsidian text-white antialiased overflow-x-hidden selection:bg-accent selection:text-black">
+    <div id="root"></div>
+  </body>
+</html>
