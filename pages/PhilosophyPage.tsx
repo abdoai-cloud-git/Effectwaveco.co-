@@ -40,7 +40,10 @@ const PhilosophyPage: React.FC<PhilosophyPageProps> = ({ theme }) => {
                 </p>
                 <div className="h-[1px] w-24 bg-white/10"></div>
                 <p>
-                  نسعى لتقديم حلول مبنية على البيانات والتحليل، مع لمسة إبداعية تضمن تحقيق نتائج ملموسة وقيمة مستدامة.
+                  {theme === 'agency' 
+                    ? "نسعى لتقديم حلول مبنية على البيانات والتحليل، مع لمسة إبداعية تضمن تحقيق نتائج ملموسة وقيمة مستدامة."
+                    : "في الإنتاج، نؤمن بأن الجودة التقنية هي أساس الإقناع. ندمج الفن بالتكنولوجيا لخلق تجربة بصرية لا تُنسى."
+                  }
                 </p>
              </div>
           </motion.div>
@@ -60,63 +63,67 @@ const PhilosophyPage: React.FC<PhilosophyPageProps> = ({ theme }) => {
                 
                 <div className="relative z-10 text-center px-6">
                    <h3 className="text-5xl md:text-7xl font-english font-bold text-white tracking-tighter opacity-90 drop-shadow-2xl">
-                     INSIGHT<br/>DRIVEN
+                     {theme === 'agency' ? 'INSIGHT' : 'QUALITY'}
+                     <br/>
+                     {theme === 'agency' ? 'DRIVEN' : 'FIRST'}
                    </h3>
                 </div>
              </div>
           </motion.div>
         </div>
 
-        {/* Platforms Section */}
-        <div className="border-t border-white/5 pt-20">
-          <div className="mb-16">
-            <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-6">
-              منصات <span style={{ color: accentColor }}>موجة تأثير</span>
-            </h2>
-            <p className="text-silver/60 text-lg max-w-3xl leading-relaxed">
-              لتحقيق فهم أعمق للسوق الليبي، أنشأت موجة تأثير منصات متخصصة تعمل كأدوات بحث تسويقي تمكّننا من دراسة السوق مباشرة وتحليل سلوك الجمهور.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {/* Side Effect */}
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="bg-onyx/50 backdrop-blur-md p-10 rounded-[2rem] border border-white/5 overflow-hidden relative group"
-            >
-              <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-blue-500 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <div className="flex items-center justify-between mb-8">
-                <h3 className="text-4xl font-english font-bold text-white">Side Effect</h3>
-                <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
-                   <Plus size={24} />
-                </div>
-              </div>
-              <p className="text-silver/70 text-lg leading-relaxed">
-                منصة متخصصة في المجال الطبي والدوائي، تقدم محتوى توعوي وتحليلي، وتساعد على فهم ديناميكية السوق الصحي وسلوك المستهلك.
+        {/* Platforms Section - Only for Agency */}
+        {theme === 'agency' && (
+          <div className="border-t border-white/5 pt-20">
+            <div className="mb-16">
+              <h2 className="text-3xl md:text-5xl font-heading font-bold text-white mb-6">
+                منصات <span style={{ color: accentColor }}>موجة تأثير</span>
+              </h2>
+              <p className="text-silver/60 text-lg max-w-3xl leading-relaxed">
+                لتحقيق فهم أعمق للسوق الليبي، أنشأت موجة تأثير منصات متخصصة تعمل كأدوات بحث تسويقي تمكّننا من دراسة السوق مباشرة وتحليل سلوك الجمهور.
               </p>
-            </motion.div>
+            </div>
 
-            {/* Rowad */}
-            <motion.div 
-              whileHover={{ y: -5 }}
-              className="bg-onyx/50 backdrop-blur-md p-10 rounded-[2rem] border border-white/5 overflow-hidden relative group"
-            >
-              <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
-              <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-4">
-                   <h3 className="text-4xl font-heading font-bold text-white">روّاد</h3>
-                   <span className="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">قريباً</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {/* Side Effect */}
+              <motion.div 
+                whileHover={{ y: -5 }}
+                className="bg-onyx/50 backdrop-blur-md p-10 rounded-[2rem] border border-white/5 overflow-hidden relative group"
+              >
+                <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-blue-500 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <div className="flex items-center justify-between mb-8">
+                  <h3 className="text-4xl font-english font-bold text-white">Side Effect</h3>
+                  <div className="w-12 h-12 rounded-full bg-blue-500/10 flex items-center justify-center text-blue-500">
+                     <Plus size={24} />
+                  </div>
                 </div>
-                <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
-                   <TrendingUp size={24} />
+                <p className="text-silver/70 text-lg leading-relaxed">
+                  منصة متخصصة في المجال الطبي والدوائي، تقدم محتوى توعوي وتحليلي، وتساعد على فهم ديناميكية السوق الصحي وسلوك المستهلك.
+                </p>
+              </motion.div>
+
+              {/* Rowad */}
+              <motion.div 
+                whileHover={{ y: -5 }}
+                className="bg-onyx/50 backdrop-blur-md p-10 rounded-[2rem] border border-white/5 overflow-hidden relative group"
+              >
+                <div className="absolute top-0 right-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-transparent opacity-50 group-hover:opacity-100 transition-opacity"></div>
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-4">
+                     <h3 className="text-4xl font-heading font-bold text-white">روّاد</h3>
+                     <span className="text-xs text-emerald-400 bg-emerald-500/10 px-3 py-1 rounded-full border border-emerald-500/20">قريباً</span>
+                  </div>
+                  <div className="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                     <TrendingUp size={24} />
+                  </div>
                 </div>
-              </div>
-              <p className="text-silver/70 text-lg leading-relaxed">
-                منصة متخصصة في الاقتصاد وريادة الأعمال، تركز على تحليل السوق والمشاريع وفهم بيئة الأعمال المحلية.
-              </p>
-            </motion.div>
+                <p className="text-silver/70 text-lg leading-relaxed">
+                  منصة متخصصة في الاقتصاد وريادة الأعمال، تركز على تحليل السوق والمشاريع وفهم بيئة الأعمال المحلية.
+                </p>
+              </motion.div>
+            </div>
           </div>
-        </div>
+        )}
 
       </section>
     </PageLayout>

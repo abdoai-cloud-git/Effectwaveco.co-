@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import PageLayout from '../components/PageLayout';
 import { 
   Clapperboard, Film, Mic2, Monitor, 
-  Target, Megaphone, PenTool, Image, Tv 
+  Target, Megaphone, PenTool, Image, Tv, Layers
 } from 'lucide-react';
 
 interface ServicesPageProps {
@@ -14,9 +14,66 @@ interface ServicesPageProps {
 const ServicesPage: React.FC<ServicesPageProps> = ({ theme }) => {
   const accentColor = theme === 'agency' ? '#ebe125' : '#b20600';
 
-  const allServices = [
+  const agencyServices = [
+    {
+      title: "إعداد الاستراتيجيات التسويقية",
+      subtitle: "STRATEGIC PLANNING",
+      icon: Target,
+      items: [
+        "دراسة السوق",
+        "تحليل الجمهور",
+        "بناء الخطط",
+        "تحديد الرسائل"
+      ]
+    },
+    {
+      title: "التسويق الرقمي وإدارة المنصات",
+      subtitle: "DIGITAL MARKETING",
+      icon: Monitor,
+      items: [
+        "إدارة حسابات التواصل الاجتماعي",
+        "صناعة المحتوى",
+        "الحملات الرقمية",
+        "تحليل الأداء",
+        "بناء الهوية الرقمية"
+      ]
+    },
+    {
+      title: "الحملات الإعلانية",
+      subtitle: "ADVERTISING CAMPAIGNS",
+      icon: Tv,
+      items: [
+        "التخطيط",
+        "التنفيذ",
+        "الإشراف والمتابعة",
+        "قياس النتائج"
+      ]
+    },
+    {
+      title: "التصميم والهوية البصرية",
+      subtitle: "BRANDING & IDENTITY",
+      icon: PenTool,
+      items: [
+        "تصميم الشعارات والهويات البصرية",
+        "التصميم الإعلاني والمواد التسويقية"
+      ]
+    },
+    {
+      title: "تنظيم المؤتمرات والمعارض",
+      subtitle: "EVENTS & EXHIBITIONS",
+      icon: Megaphone,
+      items: [
+        "تخطيط وتنفيذ المؤتمرات",
+        "إدارة المعارض والفعاليات",
+        "تغطية إعلامية للفعاليات"
+      ]
+    }
+  ];
+
+  const productionServices = [
     {
       title: "الإنتاج الإعلامي",
+      subtitle: "MEDIA PRODUCTION",
       icon: Clapperboard,
       items: [
         "إنتاج الإعلانات التجارية والتوعوية",
@@ -29,6 +86,7 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ theme }) => {
     },
     {
       title: "الإنتاج الفني",
+      subtitle: "ART & POST-PRODUCTION",
       icon: Film,
       items: [
         "موشن جرافيك 2D",
@@ -39,65 +97,19 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ theme }) => {
     },
     {
       title: "الإنتاج الصوتي والبودكاست",
+      subtitle: "AUDIO SERVICES",
       icon: Mic2,
       items: [
         "إنتاج بودكاست متكامل (صوتي ومرئي)",
         "التعليق الصوتي (Voice Over)",
         "تسجيل الأغاني والأعمال الصوتية",
         "المكساج والمعالجة الصوتية",
-        "تجهيز المحتوى الصوتي والمرئي للحملات الإعلانية"
-      ]
-    },
-    {
-      title: "التسويق الرقمي وإدارة المنصات",
-      icon: Monitor,
-      items: [
-        "إدارة حسابات التواصل الاجتماعي",
-        "صناعة المحتوى",
-        "الحملات الرقمية",
-        "تحليل الأداء",
-        "بناء الهوية الرقمية"
-      ]
-    },
-    {
-      title: "إعداد الاستراتيجيات التسويقية",
-      icon: Target,
-      items: [
-        "دراسة السوق",
-        "تحليل الجمهور",
-        "بناء الخطط",
-        "تحديد الرسائل"
-      ]
-    },
-    {
-      title: "الحملات الإعلانية",
-      icon: Tv,
-      items: [
-        "التخطيط",
-        "التنفيذ",
-        "الإشراف والمتابعة",
-        "قياس النتائج"
-      ]
-    },
-    {
-      title: "التصميم والهوية البصرية",
-      icon: PenTool,
-      items: [
-        "تصميم الشعارات والهويات البصرية",
-        "التصميم الإعلاني والمواد التسويقية"
-      ]
-    },
-    {
-      title: "تنظيم المؤتمرات والمعارض",
-      icon: Megaphone,
-      items: [
-        "تخطيط وتنفيذ المؤتمرات",
-        "إدارة المعارض والفعاليات",
-        "تغطية إعلامية للفعاليات"
+        "تجهيز المحتوى الصوتي والمرئي للحملات"
       ]
     },
     {
       title: "المطبوعات والتصميمات",
+      subtitle: "PRINT & DESIGN",
       icon: Image,
       items: [
         "تصميم وطباعة المواد التسويقية",
@@ -108,23 +120,27 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ theme }) => {
     }
   ];
 
+  const services = theme === 'agency' ? agencyServices : productionServices;
+
   return (
     <PageLayout 
       theme={theme}
       title="خدماتنا"
-      subtitle="OUR SERVICES"
-      description="نقدم مجموعة متكاملة من الخدمات التي تغطي كافة احتياجاتك الإعلامية والتسويقية."
+      subtitle={theme === 'agency' ? "AGENCY SERVICES" : "PRODUCTION SERVICES"}
+      description={theme === 'agency' 
+        ? "نقدم حلولاً تسويقية واستراتيجية مبنية على فهم دقيق للسوق والجمهور." 
+        : "نحول الأفكار إلى واقع مرئي ومسموع بأعلى معايير الجودة الفنية."}
     >
       <section className="px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {allServices.map((service, idx) => (
+          {services.map((service, idx) => (
             <motion.div
-              key={idx}
+              key={idx + theme}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.05, duration: 0.5 }}
-              className="bg-onyx/60 backdrop-blur-sm p-8 rounded-[2rem] border border-white/5 hover:border-white/10 hover:bg-onyx transition-all duration-300 group hover:-translate-y-1"
+              className="bg-onyx/60 backdrop-blur-sm p-8 rounded-[2rem] border border-white/5 hover:border-white/10 hover:bg-onyx transition-all duration-300 group hover:-translate-y-1 h-full"
             >
               <div className="flex justify-between items-start mb-8">
                 <div className="w-16 h-16 rounded-2xl bg-white/5 flex items-center justify-center border border-white/5 group-hover:bg-white/10 group-hover:border-accent/30 transition-all duration-300">
@@ -135,6 +151,10 @@ const ServicesPage: React.FC<ServicesPageProps> = ({ theme }) => {
                   />
                 </div>
                 <div className="w-2 h-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" style={{ backgroundColor: accentColor }} />
+              </div>
+              
+              <div className="mb-2 text-xs font-english tracking-widest opacity-50 uppercase text-accent" style={{ color: accentColor }}>
+                {service.subtitle}
               </div>
               
               <h3 className="text-2xl font-heading font-bold text-white mb-6 group-hover:text-accent transition-colors duration-300" style={{ color: 'white', '--hover-color': accentColor } as any}>

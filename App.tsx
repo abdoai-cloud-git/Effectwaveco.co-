@@ -25,6 +25,7 @@ function AppContent() {
   const [theme, setTheme] = useState<'agency' | 'production'>('agency');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [hasInteracted, setHasInteracted] = useState(false);
   const location = useLocation();
 
   // Colors configuration
@@ -50,6 +51,11 @@ function AppContent() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleThemeChange = (newTheme: 'agency' | 'production') => {
+    setTheme(newTheme);
+    setHasInteracted(true);
+  };
 
   // Navbar visibility condition: always show if scrolled, menu open, or not on home page
   const isNavbarVisible = isScrolled || isMenuOpen || location.pathname !== '/';
@@ -112,22 +118,25 @@ function AppContent() {
       </header>
 
       {/* Bottom Navigation / Theme Switcher */}
-      <div className="fixed bottom-10 left-0 right-0 z-50 flex flex-col items-center gap-1 pointer-events-none">
+      {/* Force LTR direction for this component to ensure Media/Production is Left and Marketing/Agency is Right */}
+      <div className="fixed bottom-10 left-0 right-0 z-50 flex flex-col items-center gap-1 pointer-events-none" dir="ltr">
          <div className="pointer-events-auto flex flex-col items-center gap-1">
             
             {/* Labels Row */}
-            <div className="flex w-full justify-between px-1">
+            <div className="flex w-full justify-between px-2">
+               {/* Left: Media (Production) */}
                <span 
-                 className={`w-24 md:w-28 text-center text-[9px] font-sans font-thin uppercase tracking-widest transition-all duration-500 ${
-                   theme === 'production' ? 'text-accent opacity-100' : 'text-white opacity-50'
+                 className={`w-32 text-center text-[10px] font-sans uppercase tracking-widest transition-all duration-500 ${
+                   theme === 'production' ? 'text-accent opacity-100 font-bold' : 'text-white opacity-30 font-thin'
                  }`}
                >
                  Media
                </span>
 
+               {/* Right: Marketing (Agency) */}
                <span 
-                 className={`w-24 md:w-28 text-center text-[9px] font-sans font-thin uppercase tracking-widest transition-all duration-500 ${
-                   theme === 'agency' ? 'text-accent opacity-100' : 'text-white opacity-50'
+                 className={`w-32 text-center text-[10px] font-sans uppercase tracking-widest transition-all duration-500 ${
+                   theme === 'agency' ? 'text-accent opacity-100 font-bold' : 'text-white opacity-30 font-thin'
                  }`}
                >
                  Marketing
@@ -136,18 +145,21 @@ function AppContent() {
 
             {/* Switcher Slider */}
             <div className="relative flex items-center bg-white/5 rounded-full p-[2px] border border-white/10 backdrop-blur-xl shadow-2xl overflow-hidden group">
+              
+              {/* Left Button: Production */}
               <button
-                onClick={() => setTheme('production')}
-                className={`relative z-20 px-4 py-1.5 rounded-full text-[9px] font-bold font-english tracking-widest transition-all duration-300 w-24 md:w-28 text-center focus:outline-none translate-x-[7px] ${
+                onClick={() => handleThemeChange('production')}
+                className={`relative z-20 px-4 py-1.5 rounded-full text-[9px] font-bold font-english tracking-widest transition-all duration-300 w-32 text-center focus:outline-none ${
                   theme === 'production' ? 'text-white' : 'text-white/40 hover:text-white'
                 }`}
               >
                 PRODUCTION
               </button>
               
+              {/* Right Button: Agency */}
               <button
-                onClick={() => setTheme('agency')}
-                className={`relative z-20 px-4 py-1.5 rounded-full text-[9px] font-bold font-english tracking-widest transition-all duration-300 w-24 md:w-28 text-center focus:outline-none ${
+                onClick={() => handleThemeChange('agency')}
+                className={`relative z-20 px-4 py-1.5 rounded-full text-[9px] font-bold font-english tracking-widest transition-all duration-300 w-32 text-center focus:outline-none ${
                   theme === 'agency' ? 'text-black' : 'text-white/40 hover:text-white'
                 }`}
               >
@@ -157,27 +169,31 @@ function AppContent() {
               {/* Sliding Pill */}
               <motion.div 
                 animate={{
-                  // Simple, clean positioning without complex keyframe arrays to avoid glitches
-                  left: theme === 'production' ? 'calc(50% + 1px)' : '2px',
+                  // Production is Left (2px), Agency is Right (50% + 1px)
+                  left: theme === 'production' ? '2px' : 'calc(50% + 1px)',
+                  // Interaction Hint: Nudge towards the other option if not interacted yet
+                  x: !hasInteracted ? (theme === 'agency' ? [0, -30, 0] : [0, 30, 0]) : 0,
                   backgroundColor: theme === 'production' ? colors.production : colors.agency,
                   boxShadow: theme === 'production'
                     ? `0 0 20px ${colors.production}66`
                     : `0 0 20px ${colors.agency}66`
                 }}
                 transition={{
-                  type: "spring",
-                  stiffness: 350,
-                  damping: 30,
-                  mass: 1
+                  left: { type: "spring", stiffness: 350, damping: 30 },
+                  x: { 
+                    duration: 1.5, 
+                    repeat: !hasInteracted ? Infinity : 0, 
+                    repeatDelay: 2.5, 
+                    ease: "easeInOut",
+                    delay: 2 // Wait 2s before starting hint
+                  },
+                  backgroundColor: { duration: 0.3 }
                 }}
                 className="absolute top-[2px] bottom-[2px] rounded-full z-10"
                 style={{
                   width: 'calc(50% - 3px)',
                 }}
-              >
-                {/* Internal "Sheen" or breathing effect could go here if needed, 
-                    but keeping it clean solves the glitch. */}
-              </motion.div>
+              />
             </div>
          </div>
       </div>
