@@ -157,44 +157,50 @@ function AppContent() {
               {/* Sliding Pill */}
               <motion.div 
                 animate={{
-                  left: theme === 'production' ? '50%' : '2px',
-                  x: theme === 'production' ? [0, -15, 0] : [0, 15, 0],
-                  backgroundColor: theme === 'production' 
-                    ? [colors.production, '#d69e00', colors.production] 
-                    : [colors.agency, '#d94f00', colors.agency],
+                  // Simple, clean positioning without complex keyframe arrays to avoid glitches
+                  left: theme === 'production' ? 'calc(50% + 1px)' : '2px',
+                  backgroundColor: theme === 'production' ? colors.production : colors.agency,
                   boxShadow: theme === 'production'
-                    ? [`0 0 10px ${colors.production}40`, `0 0 25px ${colors.agency}60`, `0 0 10px ${colors.production}40`]
-                    : [`0 0 10px ${colors.agency}40`, `0 0 25px ${colors.production}60`, `0 0 10px ${colors.agency}40`]
+                    ? `0 0 20px ${colors.production}66`
+                    : `0 0 20px ${colors.agency}66`
                 }}
                 transition={{
-                  left: { type: "spring", stiffness: 400, damping: 30 },
-                  default: {
-                    repeat: Infinity,
-                    repeatDelay: 3, 
-                    duration: 2,
-                    ease: "easeInOut",
-                    times: [0, 0.2, 1] 
-                  }
+                  type: "spring",
+                  stiffness: 350,
+                  damping: 30,
+                  mass: 1
                 }}
                 className="absolute top-[2px] bottom-[2px] rounded-full z-10"
                 style={{
                   width: 'calc(50% - 3px)',
                 }}
-              />
+              >
+                {/* Internal "Sheen" or breathing effect could go here if needed, 
+                    but keeping it clean solves the glitch. */}
+              </motion.div>
             </div>
          </div>
       </div>
 
-      <main className="relative z-10 pb-24 min-h-screen">
-        <Routes>
-          <Route path="/" element={<HomePage theme={theme} />} />
-          <Route path="/about" element={<AboutPage theme={theme} />} />
-          <Route path="/services" element={<ServicesPage theme={theme} />} />
-          <Route path="/philosophy" element={<PhilosophyPage theme={theme} />} />
-          <Route path="/team" element={<TeamPage theme={theme} />} />
-          <Route path="/contact" element={<ContactPage theme={theme} />} />
-        </Routes>
-      </main>
+      <AnimatePresence mode="wait">
+        <motion.main 
+          key={theme}
+          className="relative z-10 pb-24 min-h-screen"
+          initial={{ opacity: 0, filter: 'blur(10px)', scale: 0.99 }}
+          animate={{ opacity: 1, filter: 'blur(0px)', scale: 1 }}
+          exit={{ opacity: 0, filter: 'blur(10px)', scale: 0.99 }}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        >
+          <Routes>
+            <Route path="/" element={<HomePage theme={theme} />} />
+            <Route path="/about" element={<AboutPage theme={theme} />} />
+            <Route path="/services" element={<ServicesPage theme={theme} />} />
+            <Route path="/philosophy" element={<PhilosophyPage theme={theme} />} />
+            <Route path="/team" element={<TeamPage theme={theme} />} />
+            <Route path="/contact" element={<ContactPage theme={theme} />} />
+          </Routes>
+        </motion.main>
+      </AnimatePresence>
 
       <Footer description="نحن نصنع تجارب بصرية وصوتية تترك أثراً لا يمحى." />
     </div>
