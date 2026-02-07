@@ -1,3 +1,4 @@
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
@@ -14,9 +15,9 @@ module.exports = {
         'gray-surface': '#1A1A1A',
       },
       fontFamily: {
-        heading: ['DIN Next Arabic', 'Cairo', 'sans-serif'],
-        body: ['DIN Next Arabic', 'Tajawal', 'sans-serif'],
-        english: ['DIN Next LT Pro', 'Roboto', 'sans-serif'],
+        heading: ['Tajawal', 'sans-serif'],
+        body: ['Tajawal', 'sans-serif'],
+        english: ['Alexandria', 'sans-serif'],
       },
       backgroundImage: {
         'noise': "url('https://grainy-gradients.vercel.app/noise.svg')",

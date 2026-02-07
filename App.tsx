@@ -1,288 +1,89 @@
 
-import React, { useState } from 'react';
-import Hero from './components/Hero';
-import About from './components/About';
-import ServicesGrid from './components/ServicesGrid';
-import Team from './components/Team';
-import WhyUs from './components/WhyUs';
+import React, { useState, useEffect } from 'react';
+import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X } from 'lucide-react';
+
+import HomePage from './pages/HomePage';
+import AboutPage from './pages/AboutPage';
+import ServicesPage from './pages/ServicesPage';
+import PhilosophyPage from './pages/PhilosophyPage';
+import TeamPage from './pages/TeamPage';
+import ContactPage from './pages/ContactPage';
 import Footer from './components/Footer';
-import Logo from './components/Logo';
-import { Menu, Users, Eye, Target, PenTool, Monitor, Megaphone, Video, Aperture, Film, Clapperboard, Layers, Check, Star, Zap, Image, Mic2, Tv, X, BarChart3, Globe, Sparkles } from 'lucide-react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { EffectWaveLogo } from './components/EffectWaveLogo';
 
-type Theme = 'agency' | 'production';
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
-// --- Data Configuration ---
-
-const agencyContent = {
-  hero: {
-    badge: "استثمار رائد | A Groundbreaking Investment",
-    titleLine1: "موجة تأثير",
-    titleLine2: "نصنع الفرق",
-    description: "في عالم أصبحت فيه الصورة والرسالة والتوقيت عوامل حاسمة، نقدم فهماً عميقاً للسوق لبناء تأثير حقيقي ومستدام للعلامات التجارية.",
-    buttonText: "ابدأ رحلتك معنا"
-  },
-  about: [
-    {
-      title: "من نحن",
-      icon: Users,
-      text: "موجة تأثير وكالة رائدة في التسويق والإعلام، تقدم حلولاً مبتكرة تساعد العلامات التجارية والمؤسسات على التواصل بفعالية وخلق تأثير حقيقي ومستدام."
-    },
-    {
-      title: "فلسفتنا",
-      icon: Sparkles,
-      text: "التأثير يبدأ من الفهم. الإعلام الفعّال هو نتيجة قراءة دقيقة للسوق وسلوك الجمهور. نسعى لتقديم حلول مبنية على البيانات والتحليل مع لمسة إبداعية."
-    },
-    {
-      title: "منصاتنا",
-      icon: Layers,
-      text: "أنشأنا منصات متخصصة كأدوات بحث تسويقي: 'Side Effect' للمجال الطبي، و'روّاد' (قريباً) للاقتصاد وريادة الأعمال، لفهم ديناميكية السوق."
-    }
-  ],
-  servicesTitle: "حلول التسويق والاستراتيجية",
-  servicesSubtitle: "Marketing Solutions",
-  services: [
-    {
-      title: "الاستراتيجيات التسويقية",
-      subtitle: "Strategic Planning",
-      icon: Target,
-      features: [
-        "دراسة السوق وتحليل الجمهور",
-        "بناء الخطط وتحديد الرسائل",
-        "تحليل المنافسين والتوجهات",
-        "بناء استراتيجيات النمو",
-        "قياس النتائج وتطوير الأداء"
-      ]
-    },
-    {
-      title: "التسويق الرقمي",
-      subtitle: "Digital Marketing",
-      icon: Monitor,
-      features: [
-        "إدارة حسابات التواصل الاجتماعي",
-        "صناعة المحتوى الإبداعي",
-        "إدارة الحملات الرقمية (Ads)",
-        "تحليل الأداء الرقمي",
-        "بناء الهوية الرقمية المتكاملة"
-      ]
-    },
-    {
-      title: "المؤتمرات والفعاليات",
-      subtitle: "Events & PR",
-      icon: Megaphone,
-      features: [
-        "تخطيط وتنفيذ المؤتمرات",
-        "إدارة المعارض والفعاليات",
-        "التغطية الإعلامية للفعاليات",
-        "العلاقات العامة",
-        "إدارة السمعة المؤسسية"
-      ]
-    },
-    {
-        title: "الهوية البصرية",
-        subtitle: "Branding",
-        icon: PenTool,
-        features: [
-          "تصميم الشعارات",
-          "أدلة الهوية البصرية",
-          "المواد التسويقية",
-          "تطبيقات الهوية",
-          "استراتيجية العلامة التجارية"
-        ]
-      }
-  ],
-  whyUs: [
-    {
-      title: "التأثير يبدأ من الفهم",
-      desc: "لا نخاطب السوق قبل أن نفهمه بدقة، معتمدين على البيانات والتحليل.",
-      icon: Eye
-    },
-    {
-      title: "استثمار رائد",
-      desc: "العمل معنا ليس مجرد خدمة، بل استثمار حقيقي يعود بقيمة مستدامة.",
-      icon: Star
-    },
-    {
-      title: "إبداع وتحليل",
-      desc: "نربط الإبداع الفني بالتحليل السوقي لضمان نتائج ملموسة.",
-      icon: BarChart3
-    },
-    {
-      title: "قيمة حقيقية",
-      desc: "نقدم قيمة حقيقية وشراكة طويلة الأمد، لا مجرد خدمات مؤقتة.",
-      icon: Check
-    }
-  ],
-  team: {
-    subtitle: "Leadership Team",
-    title: "فريق يصنع التأثير",
-    description: "فريق يتكون من مختصين في الإعلام، التسويق، التخطيط، والإدارة، يعملون معًا بعقلية استثمارية لبناء مشاريع ذات قيمة."
-  },
-  footerDesc: "نصنع التأثير… ونفهم السوق قبل أن نخاطبه. وكالة رائدة تقدم حلولاً مبتكرة مبنية على المعرفة."
-};
-
-const productionContent = {
-  hero: {
-    badge: "إبداع بصري يروي قصتك",
-    titleLine1: "إعلام هادف",
-    titleLine2: "وإنتاج متكامل",
-    description: "نحول الأفكار إلى تجارب بصرية، سمعية، وحسية. من الإعلانات التلفزيونية إلى الموشن جرافيك والبودكاست.",
-    buttonText: "احجز استشارتك"
-  },
-  about: [
-    {
-      title: "رؤيتنا الإنتاجية",
-      icon: Aperture,
-      text: "أن نكون الخيار الأول في صناعة المحتوى المرئي والمسموع الذي يجمع بين الجودة السينمائية والرسالة الهادفة التي تليق بالعلامات التجارية."
-    },
-    {
-      title: "قدراتنا",
-      icon: Video,
-      text: "نمتلك أحدث التقنيات في التصوير، المونتاج، والمؤثرات البصرية، بالإضافة إلى استوديوهات صوتية متكاملة لضمان أعلى معايير الجودة."
-    },
-    {
-      title: "الجودة الفنية",
-      icon: Film,
-      text: "نركز على أدق التفاصيل الفنية، من الإضاءة وتصحيح الألوان إلى هندسة الصوت، لنضمن تجربة مشاهدة واستماع استثنائية."
-    }
-  ],
-  servicesTitle: "خدمات الإنتاج الفني",
-  servicesSubtitle: "Creative Production",
-  services: [
-    {
-      title: "الإنتاج الإعلامي",
-      subtitle: "Media Production",
-      icon: Clapperboard,
-      features: [
-        "الإعلانات التجارية والتوعوية",
-        "البرامج التلفزيونية والرقمية",
-        "المسلسلات والأفلام القصيرة",
-        "الأفلام الوثائقية",
-        "التغطيات الإعلامية الميدانية"
-      ]
-    },
-    {
-      title: "الإنتاج الفني",
-      subtitle: "Art & VFX",
-      icon: Film,
-      features: [
-        "موشن جرافيك 2D",
-        "فيديوهات 3D للمنتجات",
-        "المعالجة البصرية (Coloring)",
-        "المؤثرات الخاصة (VFX)",
-        "الإخراج والتنفيذ الفني"
-      ]
-    },
-    {
-      title: "الصوت والبودكاست",
-      subtitle: "Audio & Podcast",
-      icon: Mic2,
-      features: [
-        "إنتاج بودكاست (صوتي ومرئي)",
-        "التعليق الصوتي (Voice Over)",
-        "المكساج والمعالجة الصوتية",
-        "تسجيل الأعمال الصوتية",
-        "تجهيز الصوت للحملات"
-      ]
-    },
-    {
-      title: "المطبوعات والتصميم",
-      subtitle: "Print & Design",
-      icon: Image,
-      features: [
-        "تصميم المطبوعات",
-        "الكتيبات والنشرات الدعائية",
-        "اللوحات الإعلانية",
-        "تصميم مواد المعارض",
-        "الإنتاج الطباعي"
-      ]
-    }
-  ],
-  whyUs: [
-    {
-      title: "جودة سينمائية",
-      desc: "نستخدم أحدث الكاميرات والتقنيات لضمان صورة تضاهي الإنتاجات العالمية.",
-      icon: Tv
-    },
-    {
-      title: "فريق متخصص",
-      desc: "كفاءات إبداعية من مخرجين وفنيين ومصممين بخبرات واسعة.",
-      icon: Users
-    },
-    {
-      title: "حلول متكاملة",
-      desc: "من الفكرة والسيناريو إلى التصوير والمونتاج وحتى الطباعة.",
-      icon: Layers
-    },
-    {
-      title: "التزام بالمواعيد",
-      desc: "نحترم الوقت ونضمن تسليم المشاريع في مواعيدها بدقة واحترافية.",
-      icon: Zap
-    }
-  ],
-  team: {
-    subtitle: "Creative Crew",
-    title: "شركاء الإبداع",
-    description: "نعمل مع شبكة من الكفاءات الإبداعية والتنفيذية لضمان جودة العمل وتحقيق أفضل النتائج في كل مشروع."
-  },
-  footerDesc: "نحول الإعلام والتسويق إلى قيمة حقيقية. استوديو إنتاج متكامل يروي قصتك باحترافية."
-};
-
-
-export default function App() {
-  const [theme, setTheme] = useState<Theme>('agency');
+function AppContent() {
+  const [theme, setTheme] = useState<'agency' | 'production'>('agency');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const location = useLocation();
 
-  // Define colors based on PDF
+  // Colors configuration
   const colors = {
-    agency: '#ebe125',    // Yellow/Gold
+    agency: '#ebe125',    // Yellow
     production: '#b20600' // Red
   };
 
   const navItems = [
-    { label: 'الرئيسية', href: '#' },
-    { label: 'من نحن', href: '#' },
-    { label: 'خدماتنا', href: '#' },
-    { label: 'أعمالنا', href: '#' },
-    { label: 'الفريق', href: '#' },
-    { label: 'تواصل معنا', href: '#' },
+    { label: 'الرئيسية', path: '/' },
+    { label: 'خدماتنا', path: '/services' },
+    { label: 'من نحن', path: '/about' },
+    { label: 'فلسفتنا', path: '/philosophy' },
+    { label: 'فريق العمل', path: '/team' },
+    { label: 'تواصل معنا', path: '/contact' },
   ];
 
-  // Select content based on theme
-  const content = theme === 'agency' ? agencyContent : productionContent;
+  // Scroll listener for navbar visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Navbar visibility condition: always show if scrolled, menu open, or not on home page
+  const isNavbarVisible = isScrolled || isMenuOpen || location.pathname !== '/';
 
   return (
     <div 
-      className="min-h-screen bg-obsidian relative overflow-hidden font-body text-right transition-colors duration-700" 
-      dir="rtl"
+      className="bg-obsidian min-h-screen text-white overflow-x-hidden font-body selection:bg-accent selection:text-black dir-rtl transition-colors duration-700"
       style={{ 
         '--color-accent': colors[theme]
       } as React.CSSProperties}
     >
-      {/* Background Texture Overlay */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-0" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+      <ScrollToTop />
       
-      {/* Top Navigation Bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 py-6 flex flex-col md:flex-row justify-between items-center mix-blend-difference gap-4">
-        
-        {/* Logo Section */}
-        <div className="flex flex-col items-center">
-          <Logo className="h-10 md:h-12 w-auto mb-1" />
-          <span className="text-accent text-[0.6rem] font-english font-bold tracking-[0.3em] uppercase transition-colors duration-500">
-            {theme === 'agency' ? 'AGENCY' : 'PRODUCTION'}
-          </span>
-        </div>
+      {/* Header */}
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 px-6 py-4 flex justify-between items-center transition-all duration-500 bg-gradient-to-b from-black/90 to-transparent backdrop-blur-sm border-b border-white/5 ${
+          isNavbarVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'
+        }`}
+      >
+        <Link to="/" className="flex items-center gap-4 group">
+             <div className="text-2xl font-bold font-heading tracking-wider flex items-center gap-2">
+                <EffectWaveLogo className="w-8 h-8 group-hover:scale-110 transition-transform" />
+                <span>EFFECT WAVE</span>
+             </div>
+        </Link>
 
-        {/* Navigation Dropdown Trigger */}
-        <div className="relative">
+        <div className="relative pointer-events-auto">
           <button 
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="text-white p-2 hover:text-accent transition-colors hidden md:block z-50 relative"
+            className="text-white p-2 hover:text-accent transition-colors block z-50 relative focus:outline-none"
           >
             {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
           </button>
 
-          {/* Dropdown Menu */}
           <AnimatePresence>
             {isMenuOpen && (
               <motion.div
@@ -290,17 +91,18 @@ export default function App() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -10, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 mt-4 w-56 bg-onyx/90 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-40 origin-top-left"
+                className="absolute top-full left-0 mt-4 w-56 bg-black/80 backdrop-blur-3xl border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-40 origin-top-left"
               >
                 <div className="py-2">
                   {navItems.map((item, idx) => (
-                    <a
+                    <Link
                       key={idx}
-                      href={item.href}
-                      className="block px-6 py-3 text-white hover:bg-white/5 hover:text-accent transition-colors duration-300 font-bold border-b border-white/5 last:border-0"
+                      to={item.path}
+                      onClick={() => setIsMenuOpen(false)}
+                      className="block px-6 py-3 text-white hover:bg-white/10 hover:text-accent transition-colors duration-300 font-bold border-b border-white/5 last:border-0 text-right"
                     >
                       {item.label}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </motion.div>
@@ -310,51 +112,102 @@ export default function App() {
       </header>
 
       {/* Bottom Navigation / Theme Switcher */}
-      <div className="fixed bottom-8 left-0 right-0 z-50 flex flex-col items-center gap-1 pointer-events-none">
+      <div className="fixed bottom-10 left-0 right-0 z-50 flex flex-col items-center gap-1 pointer-events-none">
          <div className="pointer-events-auto flex flex-col items-center gap-1">
+            
+            {/* Labels Row */}
             <div className="flex w-full justify-between px-1">
                <span 
                  className={`w-24 md:w-28 text-center text-[9px] font-sans font-thin uppercase tracking-widest transition-all duration-500 ${
-                   theme === 'production' ? 'opacity-100 text-accent' : 'opacity-40 text-white'
+                   theme === 'production' ? 'text-accent opacity-100' : 'text-white opacity-50'
                  }`}
                >
                  Media
                </span>
+
                <span 
                  className={`w-24 md:w-28 text-center text-[9px] font-sans font-thin uppercase tracking-widest transition-all duration-500 ${
-                   theme === 'agency' ? 'opacity-100 text-accent' : 'opacity-40 text-white'
+                   theme === 'agency' ? 'text-accent opacity-100' : 'text-white opacity-50'
                  }`}
                >
                  Marketing
                </span>
             </div>
-            <div className="relative flex items-center bg-white/10 rounded-full p-[1px] border border-white/10 backdrop-blur-md shadow-2xl">
-              <button onClick={() => setTheme('production')} className={`relative z-10 px-4 py-1 rounded-full text-[9px] font-bold font-english tracking-wider transition-all duration-300 w-24 md:w-28 text-center ${theme === 'production' ? 'text-white' : 'text-white/60'}`}>
+
+            {/* Switcher Slider */}
+            <div className="relative flex items-center bg-white/5 rounded-full p-[2px] border border-white/10 backdrop-blur-xl shadow-2xl overflow-hidden group">
+              <button
+                onClick={() => setTheme('production')}
+                className={`relative z-20 px-4 py-1.5 rounded-full text-[9px] font-bold font-english tracking-widest transition-all duration-300 w-24 md:w-28 text-center focus:outline-none translate-x-[7px] ${
+                  theme === 'production' ? 'text-white' : 'text-white/40 hover:text-white'
+                }`}
+              >
                 PRODUCTION
               </button>
-              <button onClick={() => setTheme('agency')} className={`relative z-10 px-4 py-1 rounded-full text-[9px] font-bold font-english tracking-wider transition-all duration-300 w-24 md:w-28 text-center ${theme === 'agency' ? 'text-black' : 'text-white/60'}`}>
+              
+              <button
+                onClick={() => setTheme('agency')}
+                className={`relative z-20 px-4 py-1.5 rounded-full text-[9px] font-bold font-english tracking-widest transition-all duration-300 w-24 md:w-28 text-center focus:outline-none ${
+                  theme === 'agency' ? 'text-black' : 'text-white/40 hover:text-white'
+                }`}
+              >
                 AGENCY
               </button>
-              <div 
-                className={`absolute top-[1px] bottom-[1px] rounded-full bg-accent transition-all duration-500 ease-out shadow-[0_0_15px_rgba(0,0,0,0.3)]`}
+              
+              {/* Sliding Pill */}
+              <motion.div 
+                animate={{
+                  left: theme === 'production' ? '50%' : '2px',
+                  x: theme === 'production' ? [0, -15, 0] : [0, 15, 0],
+                  backgroundColor: theme === 'production' 
+                    ? [colors.production, '#d69e00', colors.production] 
+                    : [colors.agency, '#d94f00', colors.agency],
+                  boxShadow: theme === 'production'
+                    ? [`0 0 10px ${colors.production}40`, `0 0 25px ${colors.agency}60`, `0 0 10px ${colors.production}40`]
+                    : [`0 0 10px ${colors.agency}40`, `0 0 25px ${colors.production}60`, `0 0 10px ${colors.agency}40`]
+                }}
+                transition={{
+                  left: { type: "spring", stiffness: 400, damping: 30 },
+                  default: {
+                    repeat: Infinity,
+                    repeatDelay: 3, 
+                    duration: 2,
+                    ease: "easeInOut",
+                    times: [0, 0.2, 1] 
+                  }
+                }}
+                className="absolute top-[2px] bottom-[2px] rounded-full z-10"
                 style={{
-                  left: theme === 'production' ? '50%' : '1px',
-                  width: 'calc(50% - 1px)',
+                  width: 'calc(50% - 3px)',
                 }}
               />
             </div>
          </div>
       </div>
 
-      <main className="relative z-10">
-        <Hero {...content.hero} theme={theme} />
-        <About cards={content.about} />
-        <ServicesGrid title={content.servicesTitle} subtitle={content.servicesSubtitle} services={content.services} />
-        <Team {...content.team} />
-        <WhyUs reasons={content.whyUs} />
+      <main className="relative z-10 pb-24 min-h-screen">
+        <Routes>
+          <Route path="/" element={<HomePage theme={theme} />} />
+          <Route path="/about" element={<AboutPage theme={theme} />} />
+          <Route path="/services" element={<ServicesPage theme={theme} />} />
+          <Route path="/philosophy" element={<PhilosophyPage theme={theme} />} />
+          <Route path="/team" element={<TeamPage theme={theme} />} />
+          <Route path="/contact" element={<ContactPage theme={theme} />} />
+        </Routes>
       </main>
 
-      <Footer description={content.footerDesc} />
+      <Footer description="نحن نصنع تجارب بصرية وصوتية تترك أثراً لا يمحى." />
     </div>
   );
 }
+
+function App() {
+  // Using HashRouter to ensure routing works in all preview environments
+  return (
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+export default App;

@@ -1,7 +1,8 @@
 
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
-import Logo from './Logo';
+import { EffectWaveLogo } from './EffectWaveLogo';
+import StarField from './StarField';
 
 interface HeroProps {
   badge: string;
@@ -12,140 +13,164 @@ interface HeroProps {
   theme: 'agency' | 'production';
 }
 
-const StarField = () => {
-  const stars = useMemo(() => {
-    return Array.from({ length: 450 }).map((_, i) => ({
-      id: i,
-      top: `${Math.random() * 100}%`,
-      left: `${Math.random() * 100}%`,
-      size: Math.random() < 0.8 ? 1 : Math.random() < 0.95 ? 1.5 : 2.5,
-      opacity: Math.random() * 0.7 + 0.1,
-      animDuration: Math.random() * 5 + 2,
-      animDelay: Math.random() * 5
-    }));
-  }, []);
-
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-      {stars.map((star) => (
-        <div
-          key={star.id}
-          className="absolute bg-white rounded-full"
-          style={{
-            top: star.top,
-            left: star.left,
-            width: `${star.size}px`,
-            height: `${star.size}px`,
-            opacity: star.opacity,
-            boxShadow: star.size > 1.5 ? '0 0 3px rgba(255,255,255,0.7)' : 'none',
-            animation: `twinkle ${star.animDuration}s infinite ease-in-out ${star.animDelay}s`
-          }}
-        />
-      ))}
-    </div>
-  );
-};
-
 const Hero: React.FC<HeroProps> = ({ badge, titleLine1, titleLine2, description, buttonText, theme }) => {
   
   const accentColor = theme === 'agency' ? '#ebe125' : '#b20600';
   const buttonTextColor = theme === 'agency' ? 'text-black' : 'text-white';
+  
+  // Custom glow color: White for agency, Accent color (Red) for production
+  // This applies to both the specific logo glow and the large ambient background glow
+  const glowColor = theme === 'agency' ? '#FFFFFF' : accentColor;
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-20 pb-20">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-6 pt-24 pb-32 md:pt-20 md:pb-20">
       
-      {/* Atmosphere Layers */}
+      {/* --- ATMOSPHERE LAYERS --- */}
+      
+      {/* 1. Deep Space Base */}
       <div className="absolute inset-0 bg-obsidian z-0">
-         <div className="absolute inset-0 opacity-20 bg-noise brightness-150 contrast-150 mix-blend-overlay"></div>
+         <div className="absolute inset-0 opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] brightness-150 contrast-150 mix-blend-overlay"></div>
       </div>
 
+      {/* 2. Dust / Star Field (Canvas Optimized) */}
       <StarField />
 
-      {/* Main Ambient Glow behind content */}
+      {/* 3. The Spotlight System (Inverted / Downward "God Rays") */}
+      
+      {/* 3A. Source Glow (The "Bulb" at the top) */}
       <div 
-        className="absolute top-[20%] left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full blur-[150px] opacity-10 pointer-events-none"
-        style={{ backgroundColor: accentColor }}
+        className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full blur-[100px] pointer-events-none z-0 mix-blend-screen opacity-40"
+        style={{ 
+          background: `radial-gradient(circle at center, ${glowColor} 0%, transparent 60%)` 
+        }}
+      />
+
+      {/* 3B. Outer Wide Cone (The New Lighter, Wider Layer) */}
+      <div 
+        className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[200vw] h-[150vh] pointer-events-none z-0 mix-blend-screen opacity-30"
+        style={{
+          // Widened significantly to 25%-75% to frame the middle beam
+          background: `conic-gradient(from 0deg at 50% 0, transparent 25%, rgba(255,255,255,0.01) 30%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.01) 70%, transparent 75%)`,
+          maskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 100%)',
+        }}
+      />
+
+      {/* 3C. Middle Main Beam (The "A" Shape) */}
+      <div 
+        className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[200vw] h-[150vh] pointer-events-none z-0 mix-blend-screen"
+        style={{
+          // Widened to 35%-65% to ensure it covers the logo completely
+          background: `conic-gradient(from 0deg at 50% 0, transparent 35%, rgba(255,255,255,0.03) 40%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.03) 60%, transparent 65%)`,
+          maskImage: 'linear-gradient(to bottom, black 0%, transparent 90%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 90%)',
+        }}
       />
       
-      {/* The large circular gradient background seen in screenshot */}
+      {/* 3D. Intense Core Beam (Stronger light from top) */}
       <div 
-        className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[80vw] aspect-square rounded-full pointer-events-none opacity-[0.05]"
-        style={{ background: `radial-gradient(circle at center, ${accentColor} 0%, transparent 70%)` }}
+        className="absolute top-[-100px] left-1/2 -translate-x-1/2 w-[200vw] h-[150vh] pointer-events-none z-0 mix-blend-screen"
+        style={{
+          // Narrower, brighter beam for the core: 47% to 53%
+          background: `conic-gradient(from 0deg at 50% 0, transparent 47%, rgba(255,255,255,0.3) 49%, rgba(255,255,255,0.6) 50%, rgba(255,255,255,0.3) 51%, transparent 53%)`,
+          maskImage: 'linear-gradient(to bottom, black 0%, transparent 80%)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black 0%, transparent 80%)',
+        }}
       />
+
+      {/* 4. Ambient Colored Glow */}
+      <div 
+        className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[500px] h-[500px] rounded-full blur-[120px] opacity-10 pointer-events-none"
+        style={{ backgroundColor: glowColor }}
+      />
+
 
       {/* --- CONTENT CENTER --- */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto mt-0 md:mt-10">
         
         {/* LOGO */}
         <motion.div
-           initial={{ opacity: 0, scale: 0.8 }}
-           animate={{ opacity: 1, scale: 1 }}
+           initial={{ opacity: 0, scale: 0.8, y: 20 }}
+           animate={{ opacity: 1, scale: 1, y: 0 }}
            transition={{ duration: 1.2, ease: "easeOut" }}
-           className="mb-6"
+           className="mb-8 relative"
         >
-           <Logo className="w-40 md:w-56 h-auto" glow={true} />
+           {/* Soft Glow - Reverted to subtle/normal opacity */}
+           <div 
+             className="absolute inset-0 blur-3xl opacity-20 rounded-full pointer-events-none" 
+             style={{ backgroundColor: glowColor }}
+           ></div>
+           
+           <EffectWaveLogo className="w-48 sm:w-64 md:w-96 lg:w-[28rem] h-auto relative z-10 drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]" />
         </motion.div>
 
         {/* ENGLISH BRAND NAME */}
         <motion.h1
-          initial={{ opacity: 0, y: 10 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-english font-bold text-white tracking-tighter leading-none mb-2 drop-shadow-2xl"
+          className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-english font-bold text-white tracking-tighter leading-none mb-4 drop-shadow-2xl"
         >
           EFFECT WAVE
         </motion.h1>
 
-        {/* THEME LABEL */}
+        {/* ENGLISH SUBTITLE (Box Removed) */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
+          dir="ltr"
+          initial={{ opacity: 0, letterSpacing: '0.2em', textIndent: '0.2em' }}
+          animate={{ opacity: 1, letterSpacing: '0.8em', textIndent: '0.8em' }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mb-12"
+          className="relative mb-12 md:mb-16 w-full"
         >
-          <p className="text-sm md:text-base font-english font-bold text-white uppercase tracking-[0.6em]">
+          <p className="relative z-10 text-xs md:text-xl lg:text-3xl font-english font-bold text-white uppercase text-center">
             {theme === 'agency' ? 'AGENCY' : 'PRODUCTION'}
           </p>
         </motion.div>
 
-        {/* ARABIC CONTENT SECTION */}
+        {/* ARABIC TITLE - Conditionally Rendered */}
         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
+           initial={{ opacity: 0, x: 20 }}
+           animate={{ opacity: 1, x: 0 }}
            transition={{ duration: 0.8, delay: 0.8 }}
-           className="flex flex-col items-center mb-10"
+           className="relative inline-block mb-12 flex flex-col items-center"
         >
            {/* Badge */}
-           <div className="text-accent text-sm font-bold tracking-wider mb-2" style={{ color: accentColor }}>
-             {badge}
-           </div>
+           <div className="text-accent text-xs md:text-sm font-bold tracking-wider mb-2" style={{ color: accentColor }}>{badge}</div>
 
-           <h2 className="text-4xl md:text-6xl font-heading font-bold text-white drop-shadow-lg mb-6">
-             {titleLine1}<br />{titleLine2}
-           </h2>
-           
-           {/* The solid accent line from the screenshot */}
-           <motion.div 
-             initial={{ width: 0 }}
-             animate={{ width: 280 }}
-             transition={{ duration: 1, delay: 1.2, ease: "circOut" }}
-             className="h-1.5 rounded-full"
-             style={{ backgroundColor: accentColor }}
-           />
+           {titleLine1 && (
+             <>
+               <h2 className="text-2xl sm:text-3xl md:text-5xl font-heading font-bold text-white drop-shadow-lg flex flex-col gap-2">
+                 <span>{titleLine1}</span>
+                 <span>{titleLine2}</span>
+               </h2>
+               {/* Underline Accent */}
+               <motion.div 
+                 initial={{ width: 0 }}
+                 animate={{ width: '60%' }}
+                 transition={{ duration: 0.8, delay: 1.1 }}
+                 className="h-1.5 absolute -bottom-4 right-0 rounded-full shadow-[0_0_10px_rgba(0,0,0,0.5)]"
+                 style={{ backgroundColor: accentColor }}
+               />
+             </>
+           )}
         </motion.div>
 
-        {/* CALL TO ACTION */}
+        {/* DESCRIPTION & CTA */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.5 }}
-          className="mt-6"
+          transition={{ duration: 1, delay: 1.3 }}
+          className="flex flex-col items-center gap-8 max-w-xl"
         >
+           <p className="text-silver/60 text-sm md:text-base lg:text-lg leading-relaxed text-center font-light hidden md:block">
+             {description}
+           </p>
+
            <button 
-             className={`px-12 py-4 rounded-full ${buttonTextColor} font-bold text-lg tracking-wide transition-all duration-300 hover:scale-105 hover:brightness-110 active:scale-95 shadow-2xl`}
+             className={`px-8 py-3 md:px-10 md:py-3.5 rounded-full ${buttonTextColor} font-bold text-xs md:text-sm tracking-widest transition-all duration-300 hover:scale-105 hover:bg-white hover:text-black`}
              style={{ 
                backgroundColor: accentColor,
-               boxShadow: `0 10px 40px ${accentColor}33`
+               boxShadow: `0 0 20px ${accentColor}66`
              }}
            >
              {buttonText}
@@ -157,14 +182,14 @@ const Hero: React.FC<HeroProps> = ({ badge, titleLine1, titleLine2, description,
       {/* Scroll Indicator */}
       <motion.div 
         initial={{ opacity: 0 }}
-        animate={{ opacity: 0.3 }}
-        transition={{ delay: 2.5, duration: 1 }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4"
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2.2, duration: 1 }}
+        className="absolute bottom-24 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-silver/20 hidden md:flex"
       >
-        <span className="text-[10px] tracking-[0.5em] uppercase font-english text-white">Scroll</span>
+        <span className="text-[9px] tracking-[0.4em] uppercase font-english">Scroll</span>
         <div 
-          className="w-[2px] h-20" 
-          style={{ background: `linear-gradient(to bottom, transparent, ${accentColor}, transparent)` }}
+          className="w-[1px] h-16" 
+          style={{ background: `linear-gradient(to bottom, transparent, ${accentColor})` }}
         />
       </motion.div>
     </section>

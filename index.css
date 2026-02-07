@@ -5,40 +5,8 @@
 
 /* 
  * TYPOGRAPHY SETUP
- * Loading local fonts as requested
+ * Unified to Tajawal for all elements
  */
-
-@font-face {
-  font-family: 'DIN Next Arabic';
-  src: url('/fonts/DINNextLTArabic-Regular.woff2') format('woff2');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'DIN Next Arabic';
-  src: url('/fonts/DINNextLTArabic-Medium.woff2') format('woff2');
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'DIN Next Arabic';
-  src: url('/fonts/DINNextLTArabic-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'DIN Next LT Pro';
-  src: url('/fonts/DINNextLTPro-Bold.woff2') format('woff2');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
@@ -62,5 +30,9 @@
 }
 
 body {
-  font-family: 'DIN Next Arabic', 'Cairo', sans-serif;
+  font-family: 'Tajawal', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Tajawal', sans-serif;
 }

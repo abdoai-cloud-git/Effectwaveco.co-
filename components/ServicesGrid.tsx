@@ -24,7 +24,7 @@ const ServiceCard: React.FC<ServiceData & { index: number }> = ({ icon: Icon, ti
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       whileHover={{ y: -8 }}
-      className="group relative bg-onyx rounded-3xl p-8 border border-white/5 overflow-hidden flex flex-col h-full"
+      className="group relative bg-onyx rounded-3xl p-6 md:p-8 border border-white/5 overflow-hidden flex flex-col h-full"
     >
       {/* Hover Gradient Effect */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -37,13 +37,13 @@ const ServiceCard: React.FC<ServiceData & { index: number }> = ({ icon: Icon, ti
       {/* Content */}
       <div className="relative z-10 flex-grow">
         <div className="mb-2 text-accent text-sm font-bold tracking-wider uppercase transition-colors duration-300">{subtitle}</div>
-        <h3 className="text-3xl font-heading font-bold text-white mb-6">
+        <h3 className="text-2xl md:text-3xl font-heading font-bold text-white mb-6">
           {title}
         </h3>
         
         <ul className="space-y-4 mb-8">
           {features.map((feature, i) => (
-            <li key={i} className="flex items-start gap-3 text-silver/80 text-lg">
+            <li key={i} className="flex items-start gap-3 text-silver/80 text-base md:text-lg">
               <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0 transition-colors duration-300" />
               <span>{feature}</span>
             </li>
@@ -70,8 +70,8 @@ const ServiceCard: React.FC<ServiceData & { index: number }> = ({ icon: Icon, ti
 
 const ServicesGrid: React.FC<ServicesGridProps> = ({ title, subtitle, services }) => {
   return (
-    <section className="relative w-full max-w-7xl mx-auto px-6 py-20">
-      <div className="mb-16 relative z-10 text-center md:text-start">
+    <section className="relative w-full max-w-7xl mx-auto px-6 py-16 md:py-20">
+      <div className="mb-12 md:mb-16 relative z-10 text-center md:text-start">
         <motion.div
           key={subtitle}
           initial={{ opacity: 0, x: 20 }}
@@ -91,13 +91,13 @@ const ServicesGrid: React.FC<ServicesGridProps> = ({ title, subtitle, services }
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="text-4xl lg:text-5xl font-heading font-bold text-white leading-tight"
+          className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-white leading-tight"
         >
           {title}
         </motion.h2>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative z-10">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 relative z-10">
         {services.map((service, idx) => (
           <ServiceCard
             key={idx + service.title}

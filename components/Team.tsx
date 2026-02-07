@@ -30,6 +30,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, image, index }) => 
         <img 
           src={image} 
           alt={name}
+          loading="lazy"
           className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
         />
         
@@ -41,7 +42,7 @@ const TeamMember: React.FC<TeamMemberProps> = ({ name, role, image, index }) => 
           <div className="text-accent text-xs font-bold tracking-widest uppercase mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
             {role}
           </div>
-          <h3 className="text-2xl font-heading font-bold text-white mb-4">
+          <h3 className="text-xl md:text-2xl font-heading font-bold text-white mb-4">
             {name}
           </h3>
           
@@ -94,12 +95,12 @@ const Team: React.FC<TeamProps> = ({ subtitle, title, description }) => {
   ];
 
   return (
-    <section className="py-24 px-6 relative overflow-hidden bg-obsidian">
+    <section className="py-16 md:py-24 px-6 relative overflow-hidden bg-obsidian">
       {/* Background elements */}
       <div className="absolute right-0 top-0 w-1/3 h-full bg-accent/5 blur-[120px] -z-10 transition-colors duration-700" />
       
       <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-8">
           <div className="max-w-2xl">
             <motion.div
               key={subtitle}
@@ -119,7 +120,7 @@ const Team: React.FC<TeamProps> = ({ subtitle, title, description }) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-4xl md:text-6xl font-heading font-bold text-white mb-6"
+              className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold text-white mb-6"
             >
               {title}
             </motion.h2>
@@ -129,7 +130,7 @@ const Team: React.FC<TeamProps> = ({ subtitle, title, description }) => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-silver/70 text-lg leading-relaxed"
+              className="text-silver/70 text-base md:text-lg leading-relaxed"
             >
               {description}
             </motion.p>
@@ -147,7 +148,7 @@ const Team: React.FC<TeamProps> = ({ subtitle, title, description }) => {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {team.map((member, idx) => (
             <TeamMember key={idx} index={idx} {...member} />
           ))}
